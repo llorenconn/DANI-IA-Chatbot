@@ -7,13 +7,13 @@ def get_response(message):
         return random.choice(["Hi!", "Hello! How can I help you today?", "Hey! How are you?"])
     
     if "name" in message:
-        return random.choice(["I'm a mini AI bot!", "You can call me Mini IA.", "I'm your friendly chatbot!"])
+        return random.choice(["I'm a Dani!", "You can call me Dani.", "I'm your friendly chatbot!"])
     
     if "how are you" in message:
         return random.choice(["I'm doing great! Thanks for asking.", "I'm here and ready to help!", "All systems go! How can I assist you?"])
 
    if "calculate" in message:
-        return "Truy  typing something like 'calculate 2 + 2'."
+        return "Try typing something like 'calculate 2 + 2'."
 
      #simple math evaluation
     try:
