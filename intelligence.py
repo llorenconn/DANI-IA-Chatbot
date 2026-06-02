@@ -15,7 +15,7 @@ def get_response(message):
    if "calculate" in message:
         return "Truy  typing something like 'calculate 2 + 2'."
 
-     #simpçe math evaçuation
+     #simple math evaluation
     try:
         if any(op in message for op in ['+', '-', '*', '/']):
             return f"Result: {eval(message.split('calculate')[1].strip())}"
