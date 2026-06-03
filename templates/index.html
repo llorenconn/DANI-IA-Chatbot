@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mini AI Chat</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f0f0f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* container */
+.chat-container {
+    width: 420px;
+    height: 600px;
+    background: #1e1e1e;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* header */
+.header {
+    background: #2b2b2b;
+    padding: 15px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* messages */
+.messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* bubbles */
+.msg {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 10px;
+    max-width: 75%;
+}
+
+.user {
+    background: #4caf50;
+    color: white;
+    align-self: flex-end;
+}
+
+.bot {
+    background: #333;
+    color: white;
+    align-self: flex-start;
+}
+
+/* input */
+.input-box {
+    display: flex;
+    padding: 10px;
+    background: #2b2b2b;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+button {
+    margin-left: 10px;
+    padding: 10px;
+    border: none;
+    background: #4caf50;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="chat-container">
+
+    <div class="header">🤖 Mini AI Chat</div>
+
+    <div class="messages" id="messages"></div>
+
+    <div class="input-box">
+        <input type="text" id="input" placeholder="Type a message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+</div>
+
+<script>
+async function sendMessage() {
+    const input = document.getElementById("input");
+    const text = input.value;
+
+    if (!text) return;
+
+    addMessage(text, "user");
+
+    const formData = new FormData();
+    formData.append("message", text);
+
+    const res = await fetch("/chat", {
+        method: "POST",
+        body: formData
+    });
+
+    const reply = await res.text();
+
+    addMessage(reply, "bot");
+
+    input.value = "";
+}
+
+function addMessage(text, type) {
+    const msgBox = document.getElementById("messages");
+
+    const div = document.createElement("div");
+    div.classList.add("msg", type);
+    div.innerText = text;
+
+    msgBox.appendChild(div);
+
+    msgBox.scrollTop = msgBox.scrollHeight;
+}
+</script>
+
+</body>
+</html>
